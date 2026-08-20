@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmConnect | Produce Price Transparency</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+
+        <div class="logo">
+            🌾 <span>FarmConnect</span>
+        </div>
+
+        <nav>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#markets">Markets</a>
+            <a href="#calculator">Calculator</a>
+            <a href="#report">Report Price</a>
+        </nav>
+
+        <button class="farmer-btn">
+            👨‍🌾 Farmer
+        </button>
+
+    </header>
+
+
+    <!-- HERO -->
+    <section class="hero" id="dashboard">
+
+        <div class="hero-content">
+
+            <div class="hero-text">
+
+                <span class="badge">
+                    🌱 Smart Agriculture Platform
+                </span>
+
+                <h1>
+                    Know the <span>right price</span><br>
+                    before you sell.
+                </h1>
+
+                <p>
+                    Compare market prices, calculate your expected earnings,
+                    and make better selling decisions with real-time
+                    price transparency.
+                </p>
+
+                <a href="#price-search" class="primary-btn">
+                    Check Today's Prices →
+                </a>
+
+            </div>
+
+
+            <div class="hero-card">
+
+                <div class="hero-card-header">
+                    <span>📊 Today's Overview</span>
+                    <span class="live">● LIVE</span>
+                </div>
+
+                <div class="overview-grid">
+
+                    <div>
+                        <small>Tomato</small>
+                        <strong>₹22/kg</strong>
+                        <span class="up">↑ 8.2%</span>
+                    </div>
+
+                    <div>
+                        <small>Onion</small>
+                        <strong>₹28/kg</strong>
+                        <span class="up">↑ 4.5%</span>
+                    </div>
+
+                    <div>
+                        <small>Potato</small>
+                        <strong>₹19/kg</strong>
+                        <span class="down">↓ 2.1%</span>
+                    </div>
+
+                    <div>
+                        <small>Rice</small>
+                        <strong>₹42/kg</strong>
+                        <span class="up">↑ 3.8%</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SEARCH PRICE -->
+    <section class="section" id="price-search">
+
+        <div class="section-title">
+
+            <span>🌾 PRICE TRANSPARENCY</span>
+
+            <h2>Find the best market price</h2>
+
+            <p>
+                Select your crop and location to compare available market prices.
+            </p>
+
+        </div>
+
+
+        <div class="search-box">
+
+            <div class="input-group">
+
+                <label>Crop</label>
+
+                <select id="cropSelect">
+                    <option value="Tomato">🍅 Tomato</option>
+                    <option value="Onion">🧅 Onion</option>
+                    <option value="Potato">🥔 Potato</option>
+                    <option value="Rice">🌾 Rice</option>
+                    <option value="Maize">🌽 Maize</option>
+                    <option value="Carrot">🥕 Carrot</option>
+                </select>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Your Location</label>
+
+                <input
+                    type="text"
+                    id="locationInput"
+                    placeholder="Example: Kadur"
+                    value="Kadur"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Quantity (kg)</label>
+
+                <input
+                    type="number"
+                    id="quantityInput"
+                    value="100"
+                    min="1"
+                >
+
+            </div>
+
+
+            <button class="primary-btn search-btn" onclick="searchPrices()">
+                🔍 Compare Prices
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRICE RESULT -->
+    <section class="section result-section" id="markets">
+
+        <div class="result-header">
+
+            <div>
+                <span class="section-label">MARKET COMPARISON</span>
+                <h2 id="resultTitle">Tomato prices near Kadur</h2>
+            </div>
+
+            <div class="best-badge" id="bestBadge">
+                ⭐ Best Market
+            </div>
+
+        </div>
+
+
+        <div class="market-grid" id="marketGrid">
+            <!-- JavaScript will generate cards -->
+        </div>
+
+
+        <div class="recommendation" id="recommendation">
+
+            <div class="recommendation-icon">
+                ⭐
+            </div>
+
+            <div>
+                <h3>Best Selling Opportunity</h3>
+
+                <p id="recommendationText">
+                    Select a crop to see our recommendation.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRICE TREND -->
+    <section class="section">
+
+        <div class="section-title">
+
+            <span>📈 PRICE ANALYTICS</span>
+
+            <h2>Market price trend</h2>
+
+            <p>
+                Track how the selected crop's price has changed over the last 7 days.
+            </p>
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <div class="chart-header">
+
+                <div>
+                    <h3 id="chartCrop">Tomato Price Trend</h3>
+                    <p>Average market price per kg</p>
+                </div>
+
+                <div class="trend-value">
+                    <strong id="currentPrice">₹22/kg</strong>
+                    <span id="trendPercentage">↑ 8.2%</span>
+                </div>
+
+            </div>
+
+            <canvas id="priceChart"></canvas>
+
+        </div>
+
+    </section>
+
+
+    <!-- CALCULATOR -->
+    <section class="section calculator-section" id="calculator">
+
+        <div class="section-title">
+
+            <span>💰 PROFIT CALCULATOR</span>
+
+            <h2>Calculate your expected earnings</h2>
+
+            <p>
+                Compare your possible income after estimated transport costs.
+            </p>
+
+        </div>
+
+
+        <div class="calculator">
+
+            <div class="calculator-form">
+
+                <div class="input-group">
+
+                    <label>Crop</label>
+
+                    <select id="calcCrop" onchange="updateCalculator()">
+                        <option value="Tomato">🍅 Tomato</option>
+                        <option value="Onion">🧅 Onion</option>
+                        <option value="Potato">🥔 Potato</option>
+                        <option value="Rice">🌾 Rice</option>
+                        <option value="Maize">🌽 Maize</option>
+                        <option value="Carrot">🥕 Carrot</option>
+                    </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Quantity (kg)</label>
+
+                    <input
+                        type="number"
+                        id="calcQuantity"
+                        value="500"
+                        min="1"
+                        oninput="updateCalculator()"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>Selected Market</label>
+
+                    <select id="calcMarket" onchange="updateCalculator()">
+                        <option value="Kadur Market">Kadur Market</option>
+                        <option value="Chikkamagaluru Market">
+                            Chikkamagaluru Market
+                        </option>
+                        <option value="Bengaluru Market">
+                            Bengaluru Market
+                        </option>
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="calculation-result">
+
+                <div class="calc-row">
+
+                    <span>Market Price</span>
+
+                    <strong id="calcPrice">
+                        ₹22/kg
+                    </strong>
+
+                </div>
+
+
+                <div class="calc-row">
+
+                    <span>Quantity</span>
+
+                    <strong id="calcQty">
+                        500 kg
+                    </strong>
+
+                </div>
+
+
+                <div class="calc-row">
+
+                    <span>Gross Income</span>
+
+                    <strong id="grossIncome">
+                        ₹11,000
+                    </strong>
+
+                </div>
+
+
+                <div class="calc-row">
+
+                    <span>Estimated Transport</span>
+
+                    <strong class="expense" id="transportCost">
+                        - ₹500
+                    </strong>
+
+                </div>
+
+
+                <hr>
+
+
+                <div class="final-income">
+
+                    <span>Estimated Net Income</span>
+
+                    <strong id="netIncome">
+                        ₹10,500
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRICE REPORT -->
+    <section class="section report-section" id="report">
+
+        <div class="section-title">
+
+            <span>📝 COMMUNITY DATA</span>
+
+            <h2>Report the price you received</h2>
+
+            <p>
+                Help other farmers by sharing the actual price you received.
+            </p>
+
+        </div>
+
+
+        <div class="report-container">
+
+            <form id="reportForm">
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+
+                        <label>Farmer Name</label>
+
+                        <input
+                            type="text"
+                            id="farmerName"
+                            placeholder="Enter your name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Crop</label>
+
+                        <select id="reportCrop">
+                            <option>Tomato</option>
+                            <option>Onion</option>
+                            <option>Potato</option>
+                            <option>Rice</option>
+                            <option>Maize</option>
+                            <option>Carrot</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Market</label>
+
+                        <input
+                            type="text"
+                            id="reportMarket"
+                            placeholder="Example: Kadur Market"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Quantity (kg)</label>
+
+                        <input
+                            type="number"
+                            id="reportQuantity"
+                            placeholder="Example: 200"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Price Received (₹/kg)</label>
+
+                        <input
+                            type="number"
+                            id="reportPrice"
+                            placeholder="Example: 22"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Quality</label>
+
+                        <select id="reportQuality">
+
+                            <option>Grade A</option>
+                            <option>Grade B</option>
+                            <option>Grade C</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <button type="submit" class="primary-btn">
+                    📤 Submit Price Report
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- RECENT REPORTS -->
+    <section class="section">
+
+        <div class="section-title">
+
+            <span>👨‍🌾 FARMER COMMUNITY</span>
+
+            <h2>Recent price reports</h2>
+
+        </div>
+
+
+        <div class="reports-table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Farmer</th>
+                        <th>Crop</th>
+                        <th>Market</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Quality</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="reportsTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- IMPACT -->
+    <section class="impact">
+
+        <div class="impact-content">
+
+            <span>🌱 OUR IMPACT</span>
+
+            <h2>
+                Better information.
+                <br>
+                Better decisions.
+                <br>
+                Better income.
+            </h2>
+
+            <p>
+                FarmConnect aims to reduce information gaps between farmers
+                and markets by making agricultural price information easier
+                to understand and compare.
+            </p>
+
+        </div>
+
+
+        <div class="impact-stats">
+
+            <div>
+                <strong>1,250+</strong>
+                <span>Farmers</span>
+            </div>
+
+            <div>
+                <strong>48</strong>
+                <span>Markets</span>
+            </div>
+
+            <div>
+                <strong>25+</strong>
+                <span>Crops</span>
+            </div>
+
+            <div>
+                <strong>₹2.4Cr</strong>
+                <span>Value Tracked</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-logo">
+            🌾 FarmConnect
+        </div>
+
+        <p>
+            Farmers' Produce Price Transparency Platform
+        </p>
+
+        <p class="copyright">
+            © 2026 FarmConnect. Hackathon Prototype.
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
